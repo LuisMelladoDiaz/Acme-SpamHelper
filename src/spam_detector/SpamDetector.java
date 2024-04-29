@@ -1,14 +1,12 @@
-
 package spam_detector;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SpamDetector {
 
 	private List<String>	spamTerms;
-	private double			spamThreshold;
+	private double		spamThreshold;
 
 
 	public SpamDetector() {
@@ -29,34 +27,16 @@ public class SpamDetector {
 		String[] words = text.split("\\s+");
 		int totalWords = words.length;
 		int spamCount = 0;
-		List<String> bannedWords = SpamDetector.removeContainedTerms(this.spamTerms);
-		for (String term : bannedWords)
+
+		for (String term : this.spamTerms) {
+			term = term + " ";
 			if (text.contains(term.toLowerCase())) {
 				int termCount = text.split(term.toLowerCase(), -1).length - 1;
 				spamCount += termCount;
 			}
+		}
 		double spamPercentage = (double) spamCount / totalWords;
 		return spamPercentage > this.spamThreshold;
-	}
-
-	private static List<String> removeContainedTerms(final List<String> terms) {
-		List<String> filteredTerms = new ArrayList<>();
-
-		for (int i = 0; i < terms.size(); i++) {
-			String term1 = terms.get(i);
-			boolean containsOther = false;
-
-			for (int j = 0; j < terms.size(); j++)
-				if (i != j && term1.contains(terms.get(j))) {
-					containsOther = true;
-					break;
-				}
-
-			if (!containsOther)
-				filteredTerms.add(term1 + " ");
-		}
-
-		return filteredTerms;
 	}
 
 }
