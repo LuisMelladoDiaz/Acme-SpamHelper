@@ -26,7 +26,6 @@ public class SpamDetector {
 
 	public boolean isSpam(String text) {
 		text = text.trim().toLowerCase().replaceAll("\\s+", " ") + " ";
-		System.out.println(text);
 		String[] words = text.split("\\s+");
 		int totalWords = words.length;
 		int spamCount = 0;
@@ -37,7 +36,6 @@ public class SpamDetector {
 				spamCount += termCount;
 			}
 		double spamPercentage = (double) spamCount / totalWords;
-		System.out.println(spamPercentage);
 		return spamPercentage > this.spamThreshold;
 	}
 
@@ -58,7 +56,6 @@ public class SpamDetector {
 				filteredTerms.add(term1 + " ");
 		}
 
-		System.out.print(filteredTerms);
 		return filteredTerms;
 	}
 
